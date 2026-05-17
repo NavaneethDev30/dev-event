@@ -9,7 +9,6 @@ interface props{
     time:string,
 }
 
-
 export const Eventcard = ({title,image,slug,location,date,time}:props) => {
   return (
     <Link href={`/events/${slug}`} id="event-card">
