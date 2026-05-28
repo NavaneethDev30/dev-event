@@ -148,7 +148,6 @@ const eventSchema = new Schema<IEvent>(
   { timestamps: true }
 );
 
-eventSchema.index({ slug: 1 }, { unique: true });
 
 eventSchema.pre("save", function validateAndNormalizeEvent(this: EventDocument) {
   validateRequiredFields(this);

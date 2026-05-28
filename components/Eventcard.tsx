@@ -30,8 +30,14 @@ export const Eventcard = ({title,image,slug,location,date,time}:props) => {
             </div>
         </div>
 
+
+
         <p className="title">{title}</p>
 
     </Link>
   )
 }
+
+
+
+
