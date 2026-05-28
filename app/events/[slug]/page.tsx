@@ -9,7 +9,7 @@ import { Eventcard } from "@/components/Eventcard";
 
 const Eventdetails=({icon,alt,label}:{icon:string,label:string,alt:string}) => (
   <div className="flex-row-gap-2 items-center">
-    <Image src={icon} alt={alt} width={17} height={17}></Image>
+    <Image src={icon} alt={alt} width={17} height={17} style={{ width: "auto", height: "auto" }}></Image>
     <p>{label}</p>
   </div>
 )
@@ -37,11 +37,14 @@ const EventTags=({tags}:{tags:string[]})=>(
 const EventDetailPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   const response = await fetch(`${BASE_URL}/api/events/${slug}`);
-  const { event: { description, image, overview, date, time, location, mode, agenda, audience, tags,organizer } } = await response.json();
+  const data = await response.json();
+  const event = data?.event;
 
-  if (!description) {
+  if (!event || !event.description) {
     return notFound();
   }
+
+  const { description, image, overview, date, time, location, mode, agenda, audience, tags, organizer } = event;
 
   const bookings=10;
 
@@ -55,7 +58,7 @@ const EventDetailPage = async ({ params }: { params: Promise<{ slug: string }> }
       </div>
       <div className="details">
       <div className="content">
-      <Image src={image} alt="event banner" width={800} height={800}className="banner"></Image>
+      <Image src={image} alt="event banner" width={800} height={800} className="banner" priority style={{ width: "100%", height: "auto" }}></Image>
 
       <section className="flex-col-gap-2">
         <h2>Overview</h2>
@@ -91,7 +94,7 @@ const EventDetailPage = async ({ params }: { params: Promise<{ slug: string }> }
           (
             <p className="text-sm">Be the first to book your spot!</p>
           )}
-          <BookEvent/>
+          <BookEvent eventId={event._id} slug={event.slug} />
         </div>
 
         </aside>
