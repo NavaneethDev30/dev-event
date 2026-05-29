@@ -3,7 +3,7 @@
 import Image from "next/image"
 const ExploreBtn = () => {
   return (
-    <button type="button" id="explore-btn" className="mt-5 mx-auto text-center" onClick={()=>{console.log("button clicked")}}>
+    <button  type="button" id="explore-btn" className="mt-5 mx-auto text-center mb-3" onClick={()=>{console.log("button clicked")}}>
       
       <a href="#events">
       Explore Events
