@@ -10,8 +10,9 @@ const BASE_URL=process.env.NEXT_PUBLIC_BASE_URL;
 
 import { getAllEvents } from "@/lib/event.action";
 
+export const revalidate = 1800; // 30 minutes in seconds
+
 const page = async() => {
-  // 'use cache';
   // cacheLife('hours')
   const events = await getAllEvents();
   return (
