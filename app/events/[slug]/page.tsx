@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import BookEvent from "@/components/BookEvent";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-import { getSimilarEventBySlug } from '@/lib/event.action'
 import { IEvent } from "@/database";
 import { Eventcard } from "@/components/Eventcard";
 
@@ -34,11 +33,11 @@ const EventTags = ({ tags }: { tags: string[] }) => (
 )
 
 
+import { getSimilarEventBySlug, getEventBySlug } from '@/lib/event.action'
+
 const EventDetailPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
-  const response = await fetch(`${BASE_URL}/api/events/${slug}`);
-  const data = await response.json();
-  const event = data?.event;
+  const event = await getEventBySlug(slug);
 
   if (!event || !event.description) {
     return notFound();

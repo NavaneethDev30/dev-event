@@ -17,6 +17,18 @@ export const getSimilarEventBySlug=async(slug:string)=>{
     }
 }
 
+export const getEventBySlug = async (slug: string) => {
+    try {
+        await connectToDatabase();
+        const event = await Event.findOne({ slug });
+        if (!event) return null;
+        return JSON.parse(JSON.stringify(event));
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
 export const getAllEvents = async () => {
     try {
         await connectToDatabase();
